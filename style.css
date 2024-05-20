@@ -63,6 +63,13 @@ main {
   background-color: #f0f0f0;
 }
 
+main ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1rem;
+}
+
 footer {
   padding: 2rem;
   color: #f0f0f0;
