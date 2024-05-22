@@ -6,10 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const qtd = url.searchParams.get('qtd');
 
-  const params = url.searchParams.values();
-
-  console.log(params);
-
   if (!qtd) {
     url.searchParams.set('qtd', '10');
     window.history.pushState({}, '', url);
@@ -18,13 +14,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     baseUrl = baseUrl.concat(`qtd=${qtd}&`);
   }
 
-  for (const filter of filtersToApply) {
-    const key = Object.keys(filter)[0];
-    const value = filter[key];
-    baseUrl.concat(`${key}=${value}&`);
-  }
-
   console.log(baseUrl);
 
   //   const data = await fetch(`${baseUrl}`);
+});
+
+const filterModal = document.querySelector('main dialog');
+const filterButton = document.querySelector('#filter');
+
+filterButton.addEventListener('click', () => {
+  console.log(filterModal);
+  filterModal.showModal();
 });

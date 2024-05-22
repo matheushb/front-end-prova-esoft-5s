@@ -31,6 +31,33 @@
       </form>
     </header>
     <main>
+      <dialog open>
+        <form method="dialog">
+          <label for="tipo">Tipo</label>
+          <select name="tipo" id="tipo">
+            <option value="noticia">Noticia</option>
+            <option value="release">Release</option>
+          </select>
+          <label for="quantidade">Quantidade:</label>
+          <select name="quantidade" id="quantidade">
+            <option value="noticia">5</option>
+            <option value="release">10</option>
+            <option value="release">20</option>
+            <option value="release">40</option>
+            <option value="release">60</option>
+          </select>
+          <label for="noticia-start-date">De:</label>
+          <input
+            type="date"
+            name="noticia-start-date"
+            id="noticia-start-date"
+          />
+          <label for="noticia-end-date">Até:</label>
+          <input type="date" name="noticia-end-date" id="noticia-end-date" />
+          <button id="apply-filter">Aplicar</button>
+        </form>
+      </dialog>
+
       <ul id="noticia-list">
         <li>
           <img
@@ -50,7 +77,30 @@
           </p>
           <div id="omega">
             <p id="noticia-tags">#ibge</p>
-            <p id="noticia-date">publicado ontem</p>
+            <p id="noticia-date">Publicado ontem</p>
+          </div>
+          <p id="noticia-anchor">Leia mais</p>
+        </li>
+        <hr id="noticia-divisor" />
+        <li>
+          <img
+            id="noticia-img"
+            src="https://agenciadenoticias.ibge.gov.br/images/agenciadenoticias/ibge/2024_05/p-fazenda.jpeg"
+            alt=""
+          />
+          <h2 id="noticia-title">
+            Em parceria com a Escola de Samba Unidos da Vila Maria, IBGE divulga
+            dados de alfabetização em São Paulo (SP)
+          </h2>
+          <p id="noticia-paragraph">
+            Escola de samba se apresentou na abertura e no encerramento da
+            divulgação O Instituto Brasileiro de Geografia e Estatística (IBGE)
+            divulgou nesta sexta-feira, 17, os resultados do “Censo Demográfico
+            2022 - Alfabetização: Resultados do universo”, na...
+          </p>
+          <div id="omega">
+            <p id="noticia-tags">#ibge</p>
+            <p id="noticia-date">Publicado ontem</p>
           </div>
           <p id="noticia-anchor">Leia mais</p>
         </li>
