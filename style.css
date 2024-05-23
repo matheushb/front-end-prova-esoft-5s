@@ -159,25 +159,35 @@ main ul {
   border: 2px solid #4682b4;
 }
 
-#filter-modal {
-  display: block;
-}
-
 main dialog {
-  padding: 6rem;
+  padding: 2rem 2rem;
   border: 1px solid black;
   border-radius: 4px;
   margin: 0 auto;
   top: 30%;
+  max-width: 500px;
+  width: 80%;
 }
 
 main dialog form {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   grid-template-areas:
+    'tipo-label quantidade-label'
     'tipo quantidade'
+    'start-date-label end-date-label'
     'start-date end-date'
     'apply-filter apply-filter';
+  width: 100%;
+}
+
+#close-modal {
+  cursor: pointer;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  background: none;
+  border: none;
 }
 
 #tipo {
@@ -198,6 +208,35 @@ main dialog form {
 
 #apply-filter {
   grid-area: apply-filter;
+}
+
+#tipo-label {
+  grid-area: tipo-label;
+}
+
+#quantidade-label {
+  grid-area: quantidade-label;
+}
+
+#start-date-label {
+  grid-area: start-date-label;
+}
+
+#end-date-label {
+  grid-area: end-date-label;
+}
+
+.modal-input {
+  border-radius: 4px;
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+
+#apply-filter {
+  background-color: #4682b4;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 
 footer {

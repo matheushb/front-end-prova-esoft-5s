@@ -9,14 +9,14 @@
   <body>
     <header>
       <h1>Portal de Notícias do IBGE</h1>
-      <form>
+      <form id="search-form">
         <input
           type="text"
           placeholder="Buscar notícia por termo"
-          name="search-bar"
+          name="busca"
           id="search-bar"
         />
-        <button type="submit">🔍</button>
+        <button type="button">🔍</button>
         <svg
           id="filter"
           width="20"
@@ -31,30 +31,38 @@
       </form>
     </header>
     <main>
-      <dialog open>
+      <dialog>
+        <button id="close-modal">✖️</button>
         <form method="dialog">
-          <label for="tipo">Tipo</label>
-          <select name="tipo" id="tipo">
+          <label for="tipo" id="tipo-label">Tipo</label>
+          <select name="tipo" id="tipo" class="modal-input">
+            <option value="selecione">Selecione</option>
             <option value="noticia">Noticia</option>
             <option value="release">Release</option>
           </select>
-          <label for="quantidade">Quantidade:</label>
-          <select name="quantidade" id="quantidade">
-            <option value="noticia">5</option>
-            <option value="release">10</option>
-            <option value="release">20</option>
-            <option value="release">40</option>
-            <option value="release">60</option>
+          <label for="quantidade" id="quantidade-label">Quantidade:</label>
+          <select name="qtd" id="quantidade" class="modal-input">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="40">40</option>
+            <option value="60">60</option>
+            <option value="100">100</option>
           </select>
-          <label for="noticia-start-date">De:</label>
+          <label for="de" id="start-date-label">De:</label>
           <input
             type="date"
-            name="noticia-start-date"
+            name="de"
             id="noticia-start-date"
+            class="modal-input"
           />
-          <label for="noticia-end-date">Até:</label>
-          <input type="date" name="noticia-end-date" id="noticia-end-date" />
-          <button id="apply-filter">Aplicar</button>
+          <label for="ate" id="end-date-label">Até:</label>
+          <input
+            type="date"
+            name="ate"
+            id="noticia-end-date"
+            class="modal-input"
+          />
+          <button id="apply-filter" class="modal-input">Aplicar</button>
         </form>
       </dialog>
 
@@ -108,34 +116,34 @@
       </ul>
       <ul id="pagination">
         <li>
-          <button id="current-page">1</button>
+          <button class="page" id="current-page">1</button>
         </li>
         <li>
-          <button>2</button>
+          <button class="page">2</button>
         </li>
         <li>
-          <button>3</button>
+          <button class="page">3</button>
         </li>
         <li>
-          <button>4</button>
+          <button class="page">4</button>
         </li>
         <li>
-          <button>5</button>
+          <button class="page">5</button>
         </li>
         <li>
-          <button>6</button>
+          <button class="page">6</button>
         </li>
         <li>
-          <button>7</button>
+          <button class="page">7</button>
         </li>
         <li>
-          <button>8</button>
+          <button class="page">8</button>
         </li>
         <li>
-          <button>9</button>
+          <button class="page">9</button>
         </li>
         <li>
-          <button>10</button>
+          <button class="page">10</button>
         </li>
       </ul>
     </main>
