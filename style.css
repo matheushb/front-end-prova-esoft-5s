@@ -116,6 +116,8 @@ main ul {
 }
 
 #noticia-anchor {
+  text-decoration: none;
+  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,7 +127,7 @@ main ul {
   font-size: 14px;
 }
 
-#noticia-divisor {
+hr {
   margin: 1rem 0 1rem 0;
 }
 
