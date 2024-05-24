@@ -1,72 +1,75 @@
-let baseUrl = new URL('http://servicodados.ibge.gov.br/api/v3/noticias?');
+import { differenceInExtense } from './date-utils.js';
+import { updatePaginationList } from './pagination-form.js';
 
-const filterModal = document.querySelector('main dialog');
-const filterButton = document.querySelector('#filter');
-const modalCloseButton = document.querySelector('#close-modal');
+export let baseUrl = new URL(
+  'http://servicodados.ibge.gov.br/api/v3/noticias?'
+);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const searchParams = new URLSearchParams(window.location.search);
 
-  if (!searchParams.has('qtd')) {
-    baseUrl.searchParams.set(searchParams);
+  setParams(searchParams);
+  if (!searchParams.get('qtd')) {
     baseUrl.searchParams.set('qtd', 10);
-    setPageUrl(baseUrl);
+    return await setPageUrl(baseUrl);
   }
+
+  await updateNewsList();
 });
 
-modalCloseButton.addEventListener('click', () => {
-  filterModal.close();
-});
-
-filterButton.addEventListener('click', () => {
-  filterModal.showModal();
-});
-
-const filterForm = document.querySelector('main dialog form');
-
-filterForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const formData = new FormData(filterForm);
-  const data = Object.fromEntries(formData.entries());
-
-  for (const key of Object.keys(data)) {
-    if (data[key] && data[key] !== 'selecione') {
-      baseUrl.searchParams.set(key, data[key]);
-    }
-  }
-  setPageUrl(baseUrl);
-});
-
-//search input
-const searchForm = document.querySelector('#search-form');
-
-searchForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const formData = new FormData(searchForm);
-  const data = Object.fromEntries(formData.entries());
-
-  baseUrl.searchParams.set('busca', data.busca);
-  setPageUrl(baseUrl);
-});
-
-const fetchIbgeData = async filters => {};
-
-//pagination input
-const paginationButton = document.querySelectorAll('.page');
-
-paginationButton.forEach(button => {
-  button.addEventListener('click', () => {
-    const page = button.textContent;
-    baseUrl.searchParams.set('page', page);
-    setPageUrl(baseUrl);
-  });
-});
-
-const setPageUrl = url => {
-  window.history.replaceState({}, '', `?${url.toString().split('?')[1]}`);
-  handleUrlChange();
+const setParams = searchParams => {
+  searchParams
+    .toString()
+    .split('&')
+    .forEach(param => {
+      const [key, value] = param.split('=');
+      if (!key || !value) return;
+      baseUrl.searchParams.set(key, value);
+    });
 };
 
-const handleUrlChange = async () => {
-  console.log('éfadggfsad');
+export const setPageUrl = async url => {
+  window.history.replaceState({}, '', `?${url.toString().split('?')[1]}`);
+  await updateNewsList();
+};
+
+const fetchNewsData = async () => {
+  return await fetch(baseUrl.toString()).then(res => res.json());
+};
+
+const updateNewsList = async () => {
+  const newsList = await fetchNewsData();
+  if (newsList.items.length === 0) return alert('Nenhuma notícia encontrada');
+  await updatePaginationList(newsList);
+  const ul = document.querySelector('main ul');
+  ul.innerHTML = '';
+
+  for (const news of newsList.items) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+    <img
+      id="noticia-img"
+      src="https://agenciadenoticias.ibge.gov.br/${
+        JSON.parse(news.imagens).image_intro
+      }"
+      alt="imagem-noticia"
+    />
+    <h2 id="noticia-title">
+      ${news.titulo}
+    </h2>
+    <p id="noticia-paragraph">
+    ${news.introducao}
+    </p>
+    <div id="omega">
+      <p id="noticia-tags">#${news.editorias.split(';').join(' #')}</p>
+      <p id="noticia-date">Publicado ${differenceInExtense(
+        news.data_publicacao
+      )}</p>
+    </div>
+    <a id="noticia-anchor" href="${news.link}" target="_blank">Leia mais</a>
+  `;
+
+    ul.appendChild(li);
+    ul.appendChild(document.createElement('hr'));
+  }
 };
