@@ -1,51 +1,55 @@
-import { differenceInExtense } from './date-utils.js';
-import { updatePaginationList } from './pagination-form.js';
+import { differenceInExtense } from "./date-utils.js";
+import { changeFilterCounter } from "./filter-form.js";
+import { updatePaginationList } from "./pagination-form.js";
 
 export let baseUrl = new URL(
-  'http://servicodados.ibge.gov.br/api/v3/noticias?'
+  "http://servicodados.ibge.gov.br/api/v3/noticias?"
 );
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const searchParams = new URLSearchParams(window.location.search);
 
   setParams(searchParams);
-  if (!searchParams.get('qtd')) {
-    baseUrl.searchParams.set('qtd', 10);
+  if (!searchParams.get("qtd")) {
+    baseUrl.searchParams.set("qtd", 10);
     return await setPageUrl(baseUrl);
   }
+
+  changeFilterCounter();
 
   await updateNewsList();
 });
 
-const setParams = searchParams => {
+const setParams = (searchParams) => {
   searchParams
     .toString()
-    .split('&')
-    .forEach(param => {
-      const [key, value] = param.split('=');
+    .split("&")
+    .forEach((param) => {
+      const [key, value] = param.split("=");
       if (!key || !value) return;
       baseUrl.searchParams.set(key, value);
     });
 };
 
-export const setPageUrl = async url => {
-  window.history.replaceState({}, '', `?${url.toString().split('?')[1]}`);
+export const setPageUrl = async (url) => {
+  changeFilterCounter();
+  window.history.replaceState({}, "", `?${url.toString().split("?")[1]}`);
   await updateNewsList();
 };
 
 const fetchNewsData = async () => {
-  return await fetch(baseUrl.toString()).then(res => res.json());
+  return await fetch(baseUrl.toString()).then((res) => res.json());
 };
 
 const updateNewsList = async () => {
   const newsList = await fetchNewsData();
-  if (newsList.items.length === 0) return alert('Nenhuma notícia encontrada');
+  if (newsList.items.length === 0) return alert("Nenhuma notícia encontrada");
   await updatePaginationList(newsList);
-  const ul = document.querySelector('main ul');
-  ul.innerHTML = '';
+  const ul = document.querySelector("main ul");
+  ul.innerHTML = "";
 
   for (const news of newsList.items) {
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     li.innerHTML = `
     <img
       id="noticia-img"
@@ -61,7 +65,7 @@ const updateNewsList = async () => {
     ${news.introducao}
     </p>
     <div id="omega">
-      <p id="noticia-tags">#${news.editorias.split(';').join(' #')}</p>
+      <p id="noticia-tags">#${news.editorias.split(";").join(" #")}</p>
       <p id="noticia-date">Publicado ${differenceInExtense(
         news.data_publicacao
       )}</p>
@@ -70,6 +74,6 @@ const updateNewsList = async () => {
   `;
 
     ul.appendChild(li);
-    ul.appendChild(document.createElement('hr'));
+    ul.appendChild(document.createElement("hr"));
   }
 };

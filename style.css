@@ -39,7 +39,7 @@ header form {
 
 header form svg {
   position: absolute;
-  right: -30%;
+  left: 130%;
   cursor: pointer;
 }
 
@@ -49,6 +49,20 @@ header form input {
   height: 100%;
   border-radius: 4px;
   text-indent: 1rem;
+}
+
+header form p {
+  position: absolute;
+  left: 133%;
+  font-size: 0.8rem;
+  top: 50%;
+  background-color: #f0f0f0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  color: black;
+  text-align: center;
+  font-stretch: semi-condensed;
 }
 
 header form button {
@@ -79,10 +93,10 @@ main ul {
 #noticia-list li {
   display: grid;
   grid-template-areas:
-    'image title'
-    'image paragraph'
-    'image omega'
-    'image anchor';
+    "image title"
+    "image paragraph"
+    "image omega"
+    "image anchor";
   gap: 8px;
 }
 
@@ -175,11 +189,11 @@ main dialog form {
   display: grid;
   gap: 6px;
   grid-template-areas:
-    'tipo-label quantidade-label'
-    'tipo quantidade'
-    'start-date-label end-date-label'
-    'start-date end-date'
-    'apply-filter apply-filter';
+    "tipo-label quantidade-label"
+    "tipo quantidade"
+    "start-date-label end-date-label"
+    "start-date end-date"
+    "apply-filter apply-filter";
   width: 100%;
 }
 
