@@ -38,7 +38,6 @@ const allowedFilters = ["qtd", "tipo", "de", "ate"];
 export const changeFilterCounter = () => {
   let count = 0;
   baseUrl.searchParams.keys().forEach((key) => {
-    console.log(key);
     if (allowedFilters.includes(key)) {
       count++;
     }

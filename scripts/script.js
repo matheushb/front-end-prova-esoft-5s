@@ -3,7 +3,7 @@ import { changeFilterCounter } from "./filter-form.js";
 import { updatePaginationList } from "./pagination-form.js";
 
 export let baseUrl = new URL(
-  "http://servicodados.ibge.gov.br/api/v3/noticias?"
+  "https://servicodados.ibge.gov.br/api/v3/noticias?"
 );
 
 document.addEventListener("DOMContentLoaded", async () => {
