@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   changeFilterCounter();
+  if (searchParams.has("busca")) {
+    updateInputValue(searchParams.get("busca"));
+  }
 
   await updateNewsList();
 });
@@ -76,4 +79,10 @@ const updateNewsList = async () => {
     ul.appendChild(li);
     ul.appendChild(document.createElement("hr"));
   }
+};
+
+const updateInputValue = (busca) => {
+  const input = document.querySelector("#search-bar");
+  console.log(input);
+  input.value = busca;
 };
